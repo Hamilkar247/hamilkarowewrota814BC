@@ -1,14 +1,16 @@
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 
 from .models import Todo
+from .models import TodoListItem
 
 
-# Create your views here.
+# najprostszy widok
 def home(request):
     return HttpResponse("witam")
 
 
+# stara werjsa
 def todos(request):
     todos_list = Todo.objects.all()
     data = {
@@ -19,6 +21,7 @@ def todos(request):
     return JsonResponse(data)
 
 
+# stara wersja
 def single_todo(request, pk):
     todo = get_object_or_404(Todo, pk=pk)
     data = {
@@ -26,3 +29,22 @@ def single_todo(request, pk):
         "done": todo.done
     }
     return JsonResponse(data)
+
+
+# nowa wersja
+def todoappView(request):
+    all_todo_items = TodoListItem.objects.all()
+    return render(request, 'todos/todolist.html',
+                  {'all_items': all_todo_items})
+
+
+def addTodoView(request):
+    x = request.POST['content']
+    new_item = TodoListItem(content=x)
+    new_item.save()
+    return HttpResponseRedirect('/todos/todoapp') #czemu nie ma
+
+def deleteTodoView(request, i):
+    y = TodoListItem.objects.get(id=i)
+    y.delete()
+    return HttpResponseRedirect('/todos/todoapp')
