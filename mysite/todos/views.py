@@ -1,7 +1,28 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404
+
+from .models import Todo
 
 
 # Create your views here.
 def home(request):
     return HttpResponse("witam")
+
+
+def todos(request):
+    todos_list = Todo.objects.all()
+    data = {
+        "todos": list(todos_list.values(
+            "todo", "done"
+        ))
+    }
+    return JsonResponse(data)
+
+
+def single_todo(request, pk):
+    todo = get_object_or_404(Todo, pk=pk)
+    data = {
+        "todo": todo.todo,
+        "done": todo.done
+    }
+    return JsonResponse(data)

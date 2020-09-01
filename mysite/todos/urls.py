@@ -4,5 +4,7 @@ from . import views
 app_name = "todos"
 
 urlpatterns = [
-    path('', views.home, name='home')
+    #path('witam', views.home, name="home"),
+    path("",views.todos, name="todos"),
+    path("/<int:pk", views.single_todo, name="single_todo")
 ]
