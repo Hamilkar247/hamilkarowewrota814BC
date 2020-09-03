@@ -32,8 +32,8 @@ def single_todo(request, pk):
 
 
 # nowa wersja
-def todoappView(request):
-    all_todo_items = TodoListItem.objects.all()
+def todoappView(request, l):
+    all_todo_items = TodoListItem.objects.filter(lista=l)
     return render(request, 'todos/todolist.html',
                   {'all_items': all_todo_items})
 

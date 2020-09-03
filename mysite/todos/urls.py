@@ -7,7 +7,7 @@ urlpatterns = [
     #path('witam', views.home, name="home"),
     path("",views.todos, name="todos"),
     #path("/<int:pk", views.single_todo, name="single_todo"),
-    path("todoapp", views.todoappView),
+    path("todoapp/<str:l>/", views.todoappView),
     path('todoapp/addTodoItem/', views.addTodoView),
-    path('todoapp/deleteTodoItem/<int:i>/', views.deleteTodoView)
+    path('todoapp/deleteTodoItem/<int:i>/', views.deleteTodoView),
 ]
