@@ -13,3 +13,4 @@ class Todo(models.Model):
 class TodoListItem(models.Model):
     content = models.TextField()
     lista = models.TextField(default="lista")
+    done = models.BooleanField(default=False)

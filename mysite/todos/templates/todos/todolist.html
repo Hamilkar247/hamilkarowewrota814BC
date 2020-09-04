@@ -1,16 +1,29 @@
-<h1>My todo app</h1>
+<h1>LISTA: {{lista}}</h1>
 
 <ul>
     {% for i in all_items %}
-    <li>{{i.lista}} {{i.content}}
+    {% if i.done == True %}
+    <s>
+    {% endif %}
+        <li>{{lista}} {{i.content}}
     </li>
+     {% if i.done == True %}
+    </s>
+    {% endif %}
+
+    {% if i.done == True %}
     <form action="/todos/todoapp/deleteTodoItem/{{i.id}}/" method = "post">{% csrf_token %}
              <input type="submit" value="Delete">
     </form>
+    {% else %}
+    <form action="/todos/todoapp/crossingTodoItem/{{i.id}}/" method = "post">{% csrf_token %}
+             <input type="submit" value="Crossing">
+    </form>
+    {% endif %}
     {% endfor %}
 </ul>
 
-<form action="/todos/todoapp/addTodoItem/" method = "post">{% csrf_token %}
+<form action="/todos/todoapp/addTodoItem/{{lista}}/" method = "post">{% csrf_token %}
     <input type="text" name="content">
     <input type="submit" value="Add Todo Item">
 </form>

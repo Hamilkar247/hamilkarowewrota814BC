@@ -35,16 +35,27 @@ def single_todo(request, pk):
 def todoappView(request, l):
     all_todo_items = TodoListItem.objects.filter(lista=l)
     return render(request, 'todos/todolist.html',
-                  {'all_items': all_todo_items})
+                  {'all_items': all_todo_items, 'lista': l})
 
 
-def addTodoView(request):
+def addTodoView(request, l):
     x = request.POST['content']
-    new_item = TodoListItem(content=x)
+    new_item = TodoListItem(content=x, lista=l)
     new_item.save()
-    return HttpResponseRedirect('/todos/todoapp') #czemu nie ma
+    return HttpResponseRedirect('/todos/todoapp/{}'.format(l))  # czemu nie ma
+
+
+# gdy wykonales zadanie ale jeszcze go nie wyrzucasz z pamieci
+def crossingTodoView(request, i):
+    y = TodoListItem.objects.get(id=i)
+    y.done = True
+    y.save()
+    lista = y.lista
+    return HttpResponseRedirect('/todos/todoapp/{}'.format(lista))
+
 
 def deleteTodoView(request, i):
     y = TodoListItem.objects.get(id=i)
+    lista = y.lista
     y.delete()
-    return HttpResponseRedirect('/todos/todoapp')
+    return HttpResponseRedirect('/todos/todoapp/{}'.format(lista))
