@@ -44,6 +44,14 @@ def addTodoView(request):
     new_item.save()
     return HttpResponseRedirect('/todos/todoapp') #czemu nie ma
 
+#gdy wykonales zadanie ale jeszcze go nie wyrzucasz z pamieci
+def crossingTodoView(request, i):
+    y = TodoListItem.objects.get(id=i)
+    y.done = True
+    y.save()
+    lista = y.lista
+    return HttpResponseRedirect('/todos/todoapp/{}'.format(lista))
+
 def deleteTodoView(request, i):
     y = TodoListItem.objects.get(id=i)
     y.delete()

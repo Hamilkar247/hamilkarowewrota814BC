@@ -10,4 +10,5 @@ urlpatterns = [
     path("todoapp/<str:l>/", views.todoappView),
     path('todoapp/addTodoItem/', views.addTodoView),
     path('todoapp/deleteTodoItem/<int:i>/', views.deleteTodoView),
+    path('todoapp/crossingTodoItem/<int:i>/', views.crossingTodoView),
 ]
