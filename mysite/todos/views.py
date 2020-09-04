@@ -54,5 +54,6 @@ def crossingTodoView(request, i):
 
 def deleteTodoView(request, i):
     y = TodoListItem.objects.get(id=i)
+    lista = y.lista
     y.delete()
-    return HttpResponseRedirect('/todos/todoapp')
+    return HttpResponseRedirect('/todos/todoapp/{}'.format(lista))
