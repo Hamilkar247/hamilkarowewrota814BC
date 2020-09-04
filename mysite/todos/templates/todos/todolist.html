@@ -23,7 +23,7 @@
     {% endfor %}
 </ul>
 
-<form action="/todos/todoapp/addTodoItem/" method = "post">{% csrf_token %}
+<form action="/todos/todoapp/addTodoItem/{{lista}}/" method = "post">{% csrf_token %}
     <input type="text" name="content">
     <input type="submit" value="Add Todo Item">
 </form>
